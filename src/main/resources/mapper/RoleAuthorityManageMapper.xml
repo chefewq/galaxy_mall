@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenhao.mall.o2o.dao.RoleAuthorityManageMapper">
+
+    <select id="selectRoleAuthority" resultType="java.lang.String" parameterType="int">
+        select authority_id,authority_name
+        from tb_authority
+        where (authority_id in
+        (select authority_id from tb_role_authority
+        where role_id in (select role_id from tb_user_role
+        where user_id=#{userId} )))
+    </select>
+</mapper>

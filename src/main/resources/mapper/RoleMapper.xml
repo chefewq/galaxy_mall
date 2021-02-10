@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenhao.mall.o2o.dao.RoleMapper">
+
+    <select id="selectById" resultMap="RoleUser">
+        select a.role_id aid ,b.role_name bname
+        from tb_user_role a,tb_role b
+        where a.role_id=b.role_id
+        and a.user_id=#{id}
+    </select>
+    <select id="selectByName" resultMap="RoleName">
+        select c.role_id cid ,d.role_name dname from tb_user_role c,tb_role d
+        where c.role_id=d.role_id and
+        d.role_name=#{userName}
+    </select>
+    <resultMap id="RoleUser" type="com.chenhao.mall.o2o.pojo.authoritymanage.Role">
+        <result property="roleId" column="aid"></result>
+        <result property="roleName" column="bname"></result>
+    </resultMap>
+    <resultMap id="RoleName" type="com.chenhao.mall.o2o.pojo.authoritymanage.Role">
+        <result property="roleId" column="cid"></result>
+        <result property="roleName" column="dname"></result>
+    </resultMap>
+</mapper>

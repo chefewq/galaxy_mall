@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: 123456haohao
+    url: jdbc:mysql://localhost:3306/o2o?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&allowMultiQueries=true&allowPublicKeyRetrieval=true
+    username: root
+  jackson:
+    date-format: "yyyy-MM-dd HH:mm:ss"
+  mvc:
+    static-path-pattern: /**
+  resources:
+    static-locations: file:F:/galaxy/img/
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    mapUnderscoreToCamelCase: true
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  pageSizeZero: false #pageSize=0

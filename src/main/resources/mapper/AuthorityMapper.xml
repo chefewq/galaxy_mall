@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenhao.mall.o2o.dao.AuthorityMapper">
+
+    <select id="selectByRoleID" resultMap="AuthorityRole">
+        select a.role_id aid, b.authority_name bname
+        from
+        tb_role_authority a,tb_authority b where a.authority_id=b.authority_id and a.role_id=#{roleId}
+    </select>
+    <resultMap id="AuthorityRole" type="com.chenhao.mall.o2o.pojo.authoritymanage.Authority">
+        <result property="authorityName" column="bname"></result>
+        <result property="authorityId" column="aid"></result>
+    </resultMap>
+</mapper>

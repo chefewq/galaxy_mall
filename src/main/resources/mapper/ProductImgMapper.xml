@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenhao.mall.o2o.dao.ProductImgMapper">
+    <select id="selectByProductId" resultType="com.chenhao.mall.o2o.pojo.ProductImg">
+        select * from tb_product_img where product_id=#{productId}
+    </select>
+</mapper>

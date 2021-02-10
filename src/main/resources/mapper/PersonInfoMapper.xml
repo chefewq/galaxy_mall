@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenhao.mall.o2o.dao.PersonInfoMapper">
+    <resultMap id="BaseResultMap" type="com.chenhao.mall.o2o.pojo.PersonInfo">
+        <id column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="profile_img" jdbcType="VARCHAR" property="profileImg"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="gender" jdbcType="VARCHAR" property="gender"/>
+        <result column="enable_status" jdbcType="INTEGER" property="enableStatus"/>
+        <result column="user_type" jdbcType="INTEGER" property="userType"/>
+        <result column="crea_time" jdbcType="TIMESTAMP" property="creaTime"/>
+        <result column="last_edit_time" jdbcType="TIMESTAMP" property="lastEditTime"/>
+    </resultMap>
+    <select id="Login" parameterType="string" resultType="com.chenhao.mall.o2o.pojo.PersonInfo">
+        select * from tb_person_info where user_name=#{userName} and password=#{password}
+    </select>
+    <select id="checkUserName" resultType="Integer" parameterType="String">
+        select count(1) from tb_person_info where user_name=#{userName}
+    </select>
+    <insert id="insertUser" parameterType="com.chenhao.mall.o2o.pojo.PersonInfo">
+        insert into tb_person_info(user_name,password)values (#{userName},#{password})
+    </insert>
+</mapper>

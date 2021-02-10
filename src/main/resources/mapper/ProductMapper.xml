@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenhao.mall.o2o.dao.ProductMapper">
+    <select id="selectAll" resultType="com.chenhao.mall.o2o.pojo.Product">
+        select * from tb_product
+    </select>
+    <select id="selectByCategoryId" parameterType="int" resultType="com.chenhao.mall.o2o.pojo.Product">
+        select * from tb_product where product_category_id=#{categoryId}
+    </select>
+    <select id="selectByGoodsName" parameterType="String" resultType="com.chenhao.mall.o2o.pojo.Product">
+        select * from tb_product where product_name like #{goodsName}
+    </select>
+    <insert id="insertGoods" parameterType="com.chenhao.mall.o2o.pojo.Product">
+        insert into tb_product(product_name,product_category_id,product_title,normal_price,promotion_price,shop_id)
+        values (#{productName},#{productCategoryId},#{productTitle},#{normalPrice},#{promotionPrice},#{shopId});
+        <selectKey keyProperty="productId" order="AFTER" resultType="int">
+            select last_insert_id()
+        </selectKey>
+    </insert>
+    <update id="updateGoodsImg">
+        update tb_product set img_addr=#{img} where product_id=#{productId}
+    </update>
+    <select id="selectByPrimaryKey" parameterType="int" resultType="com.chenhao.mall.o2o.pojo.Product">
+        select * from tb_product where product_id=#{productId}
+    </select>
+</mapper>

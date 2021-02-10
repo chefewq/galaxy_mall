@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenhao.mall.o2o.dao.UserGoodsCollectMapper">
+    <select id="selectAll" resultType="com.chenhao.mall.o2o.pojo.UserGoodsCollect" parameterType="int">
+        select * from tb_product as a,
+        tb_user_collect_goods as b
+        where a.product_id=b.product_id
+        and b.user_id=#{userId}
+    </select>
+    <insert id="addGoods" parameterType="int">
+        insert into `tb_user_collect_goods`(`user_id`,`product_id`)
+        values (#{userId},#{productId})
+    </insert>
+    <delete id="deleteGoods" parameterType="int">
+        delete from `tb_user_collect_goods` where user_id=#{userId} and product_id=#{productId}
+    </delete>
+</mapper>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenhao.mall.o2o.dao.OrderMapper">
+    <select id="selectAll" parameterType="int" resultMap="map">
+        SELECT
+        c.order_id,
+        a.product_id,
+        a.product_name,
+        a.img_addr,
+        a.normal_price,
+        a.promotion_price,
+        a.priority,
+        a.create_time as acreate_time,
+        a.shop_id,
+        b.count,
+        a.last_edit_time,
+        a.enable_status,
+        a.product_category_id,
+        a.product_title,
+        c.create_time as ccreate_time
+        FROM
+        tb_product AS a,
+        tb_order_user_product AS b,
+        tb_order AS c
+        WHERE
+        a.product_id=b.product_id
+        AND
+        b.order_id
+        IN
+        (
+        SELECT
+        c.order_id
+        FROM tb_order
+        WHERE user_id=1
+        )
+    </select>
+    <resultMap id="map" type="com.chenhao.mall.o2o.pojo.Order">
+        <id column="order_id" property="orderId"></id>
+        <result column="ccreate_time" property="createTime" javaType="Date"></result>
+        <collection property="orderElements" resultMap="map2"></collection>
+    </resultMap>
+    <resultMap id="map2" type="com.chenhao.mall.o2o.pojo.OrderElement">
+        <result property="productId" column="product_id"></result>
+        <result property="productName" column="product_name"></result>
+        <result property="imgAddr" column="img_addr"></result>
+        <result property="normalPrice" column="normal_price"></result>
+        <result property="promotionPrice" column="promotion_price"></result>
+        <result property="priority" column="priority"></result>
+        <result property="createTime" column="acreate_time"></result>
+        <result property="shopId" column="shop_id"></result>
+        <result property="count" column="count"></result>
+        <result property="lastEditTime" column="last_edit_time"></result>
+        <result property="enableStatus" column="enable_status"></result>
+        <result property="productCategoryId" column="product_category_id"></result>
+        <result property="productTitle" column="product_title"></result>
+    </resultMap>
+
+    <insert id="addOrder" parameterType="list">
+
+        <foreach collection="list" item="obj" separator=";">
+            insert into `tb_order_user_product`(order_id,product_id,`count`)
+            values(#{orderId},#{obj.productId},#{obj.count})
+        </foreach>
+    </insert>
+    <insert id="createOrder" parameterType="com.chenhao.mall.o2o.pojo.OrderUtil">
+        <selectKey keyProperty="orderId" keyColumn="order_id" resultType="java.lang.Integer" order="AFTER">
+            select last_insert_id();
+        </selectKey>
+        insert into `tb_order`(`user_id`,`create_time`)
+        values(#{userId},#{createTime})
+    </insert>
+</mapper>
